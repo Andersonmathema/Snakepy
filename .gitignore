@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log
+*.log
+
+# Ambientes virtuais
+venv/
+.env/
+.venv/
+ENV/
+env/
+
+# Configurações do VSCode
+.vscode/
+
+# Configurações do PyCharm
+.idea/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários ou de backup
+*.bak
+*.swp
+*.swo
+*~
+
+# Compilação Cython
+*.c
+*.so
+
+# Arquivos do Poetry
+poetry.lock
+
+# Arquivos do pip
+pip-selfcheck.json
+
+# Arquivos de build/distribuição
+build/
+dist/
+*.egg-info/
