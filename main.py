@@ -18,7 +18,13 @@ class Snake:
 
 # Classe que representará a comida
 class Food:
-    pass  # A implementação será feita nas próximas etapas
+    def __init__(self):
+        x = random.randint(0, (GAME_WIDTH // SPACE_SIZE)-1) * SPACE_SIZE
+        y = random.randint(0, (GAME_HEIGHT // SPACE_SIZE)-1) * SPACE_SIZE
+
+        self.coordinates = [x,y]
+
+        canvas.create_oval(x, y, x+SPACE_SIZE, y+SPACE_SIZE, fill=FOOD_COLOR, tags='food')
 
 # Função que será chamada a cada "turno" do jogo (movimento da cobra, atualização da tela, etc.)
 def next_turn():
@@ -66,6 +72,9 @@ y = int((screen_height / 2) - (window_height / 2)) # Posição vertical centrali
 
 # Define a geometria da janela e a posiciona centralizada na tela
 window.geometry(f'{window_width}x{window_height}+{x}+{y}')
+
+snake = Snake()
+food = Food()
 
 # Inicia o loop principal da interface gráfica
 window.mainloop()
