@@ -101,7 +101,20 @@ def change_direction(new_direction):
     """
     Altera a direção global da cobra. Ainda precisa implementar verificação para evitar reversão direta.
     """
-    pass  # A lógica de mudança de direção será implementada depois
+    global direction
+
+    if new_direction == 'left':
+        if direction != 'right':
+            direction = new_direction
+    if new_direction == 'right':
+        if direction != 'left':
+            direction = new_direction
+    if new_direction == 'up':
+        if direction != 'down':
+            direction = new_direction
+    if new_direction == 'down':
+        if direction != 'up':
+            direction = new_direction
 
 
 # Função para verificar se houve colisão (com a parede ou consigo mesma)
@@ -153,6 +166,11 @@ y = int((screen_height / 2) - (window_height / 2))
 
 # Define a posição da janela
 window.geometry(f'{window_width}x{window_height}+{x}+{y}')
+
+window.bind('<Left>', lambda event: change_direction('left'))
+window.bind('<Right>', lambda event: change_direction('right'))
+window.bind('<Up>', lambda event: change_direction('up'))
+window.bind('<Down>', lambda event: change_direction('down'))
 
 # Instancia a cobra e a comida
 snake = Snake()
