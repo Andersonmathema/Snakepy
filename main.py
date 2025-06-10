@@ -7,7 +7,7 @@ GAME_WIDTH = 700           # Largura da área de jogo (canvas)
 GAME_HEIGHT = 700          # Altura da área de jogo (canvas)
 SPEED = 50                 # Intervalo entre os frames do jogo (em milissegundos)
 SPACE_SIZE = 50            # Tamanho de cada "bloco" da cobra e da comida
-BODY_PARTS = 3             # Número inicial de partes do corpo da cobra
+BODY_PARTS = 10            # Número inicial de partes do corpo da cobra
 SNAKE_COLOR = '#00FF00'    # Cor da cobra (verde)
 FOOD_COLOR = '#FF0000'     # Cor da comida (vermelha)
 BACKGROUND_COLOR = '#000000'  # Cor de fundo do canvas (preto)
@@ -87,8 +87,11 @@ def next_turn(snake, food):
         canvas.delete(snake.squares[-1])
         del snake.squares[-1]
 
-    # Chama o próximo turno
-    window.after(SPEED, next_turn, snake, food)
+    if check_collision(snake):
+        game_over()
+    else:
+        # Chama o próximo turno
+        window.after(SPEED, next_turn, snake, food)
 
 
 # Função que altera a direção da cobra
@@ -112,9 +115,30 @@ def change_direction(new_direction):
 def check_collision(snake):
     """
     Verifica se a cobra colidiu com a parede ou com o próprio corpo.
-    Retorna True em caso de colisão, False caso contrário.
+    Retorna True em caso de colisão, indicando fim de jogo; caso contrário, retorna False.
     """
-    pass
+
+    # Obtém a posição da cabeça da cobra (primeira coordenada da lista)
+    x, y = snake.coordinates[0]
+
+    # Verifica se a cabeça ultrapassou os limites do canvas na horizontal
+    if x < 0 or x >= GAME_WIDTH:
+        print('Game Over')  # Mensagem de depuração
+        return True  # Colisão com parede horizontal (esquerda/direita)
+
+    # Verifica se a cabeça ultrapassou os limites do canvas na vertical
+    elif y < 0 or y >= GAME_HEIGHT:
+        print('Game Over')  # Mensagem de depuração
+        return True  # Colisão com parede superior/inferior
+
+    # Verifica colisão da cabeça com o restante do corpo (auto-colisão)
+    for body_parts in snake.coordinates[1:]:
+        if x == body_parts[0] and y == body_parts[1]:
+            print('Game Over')  # Mensagem de depuração
+            return True  # Colisão com o próprio corpo
+
+    # Nenhuma colisão detectada
+    return False
 
 
 
