@@ -7,7 +7,7 @@ GAME_WIDTH = 700           # Largura da área de jogo (canvas)
 GAME_HEIGHT = 700          # Altura da área de jogo (canvas)
 SPEED = 50                 # Intervalo entre os frames do jogo (em milissegundos)
 SPACE_SIZE = 50            # Tamanho de cada "bloco" da cobra e da comida
-BODY_PARTS = 10            # Número inicial de partes do corpo da cobra
+BODY_PARTS = 3            # Número inicial de partes do corpo da cobra
 SNAKE_COLOR = '#00FF00'    # Cor da cobra (verde)
 FOOD_COLOR = '#FF0000'     # Cor da comida (vermelha)
 BACKGROUND_COLOR = '#000000'  # Cor de fundo do canvas (preto)
@@ -140,14 +140,25 @@ def check_collision(snake):
     # Nenhuma colisão detectada
     return False
 
-
-
 # Função que finaliza o jogo
 def game_over():
     """
-    Exibe mensagem de fim de jogo e limpa o canvas.
+    Exibe a mensagem 'GAME OVER' no centro da tela e apaga todos os elementos do canvas.
+    Essa função é chamada quando ocorre uma colisão com as bordas ou com o próprio corpo da cobra.
     """
-    pass
+
+    # Remove todos os elementos desenhados no canvas (cobra, comida, etc.)
+    canvas.delete(ALL)
+
+    # Desenha o texto "GAME OVER" no centro da área do jogo
+    canvas.create_text(
+        canvas.winfo_width() / 2,    # Coordenada X: metade da largura do canvas
+        canvas.winfo_height() / 2,   # Coordenada Y: metade da altura do canvas
+        font=('consolas', 70),       # Define a fonte e tamanho do texto
+        text='GAME OVER',            # Texto exibido
+        fill='red',                  # Cor do texto
+        tags='gameover'              # Tag identificadora (opcional, pode ser usada para manipulação futura)
+    )
 
 
 
